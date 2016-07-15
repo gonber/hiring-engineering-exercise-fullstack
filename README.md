@@ -71,13 +71,29 @@ time in *descending* order (i.e. with the earliest datum at index 0).
 
 ## Project Skeleton
 
+### Dependencies
+
+A simply makefile has been included to install any dependencies you may need.
+This exercise requires postgresql to be installed, and at least node 6.x. `make
+deps` will install everything you need. `make init_db` will initialise the
+database for this project, `make start_db` will start postgres running and
+`make env` will set up your environment using `nvm`.
+
+### Starting Point
+
+A file called `server.js` contains the barebones of an HTTP server to start you
+off. This file is expected by the tests, so if you move it, you will need to
+update `tests/server.spec.js`.
+
+A file called `db.js` can be used for (posgres) database access. Some migrations
+have already been set up in `migrations.js`.
+
 ### Tests
 
-We are very bullish on code being fully tested, and so expect tests
-to be written for this exercise. To this end, there is a file called
-`tests/server.spec.js` which has a series of blank tests which should be filled
-in. We recommend using [`supertest`](https://www.npmjs.com/package/supertest) for
-testing the HTTP server (for simplicity).
+We are very bullish on code being fully tested, and so expect tests to
+be written for this exercise. To start you off, there is a file called
+`tests/server.spec.js` which contains some end-to-end tests, following this
+specification. All tests should have `.spec.js` as the suffic to their filename.
 
 ### Misc
 
