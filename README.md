@@ -40,9 +40,10 @@ In this exercise, sensors will report their data by making an HTTP request `PUT
 #### Expected behaviour
 
 Should ensure the packet structure is valid, and store the packet in a database.
-If the packet is invalid, it should return a `400 Bad Request` status. If the
+If the packet is invalid, it should return a `400 Bad Request`. If the
 packet is valid, and has been successfully stored in the database, it should
-return a `204 No Content` status.
+return `204 No Content`. If a datum with the same `sensorId` and `time`
+has already been ingested, it should return `409 Conflict`.
 
 ### Retrieving data
 
@@ -72,16 +73,11 @@ time in *descending* order (i.e. with the earliest datum at index 0).
 
 ### Tests
 
-We expect unit tests to be written for your code, and would prefer you to use
-`mocha` as your test runner (the script `npm test` is set up to expect tests to
-be in the `tests` folder, and to use mocha).
-
-Some end-to-end tests have been written to check that your application adheres
-to the specification above, they are in `tests/e2e.spec.js`.
-
-There is a file called `tests/clean_db.js` into which you should place a script
-that will clear the database you are using. This is so that each tests can run
-on a clean slate.
+We are very bullish on code being fully tested, and so expect tests
+to be written for this exercise. To this end, there is a file called
+`tests/server.spec.js` which has a series of blank tests which should be filled
+in. We recommend using [`supertest`](https://www.npmjs.com/package/supertest) for
+testing the HTTP server (for simplicity).
 
 ### Misc
 
