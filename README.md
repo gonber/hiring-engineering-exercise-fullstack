@@ -69,6 +69,14 @@ If all the inputs are valid, and data are found, then it should return `200 OK`
 with `Content-Type: application/json` and a valid-json array of data, sorted by
 time in *descending* order (i.e. with the earliest datum at index 0).
 
+## Additional features
+
+### Alerting
+
+In addition to ingesting and serving data over HTTP, the server should send
+email alerts when the data are outside of normal bounds, which is defined as
+*values between 60 and 0*.
+
 ## Project Skeleton
 
 ### Dependencies
