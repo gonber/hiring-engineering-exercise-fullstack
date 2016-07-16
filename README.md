@@ -73,9 +73,10 @@ time in *descending* order (i.e. with the earliest datum at index 0).
 
 ### Alerting
 
-In addition to ingesting and serving data over HTTP, the server should send
-email alerts when the data are outside of normal bounds, which is defined as
-*values between 60 and 0*.
+The data coming in are from temperature sensors, but sometimes these sensors
+fail, giving anomalous readings (or, sometimes, they will measure something
+unusually hot). This sort of anomalous behaviour should trigger email alerts
+notifying the user.
 
 ## Project Skeleton
 
