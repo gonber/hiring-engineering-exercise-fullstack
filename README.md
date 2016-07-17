@@ -3,10 +3,13 @@
 This exercise is designed to test your ability to design and implement a basic
 data-ingestion server in `node.js`.
 
-Converge ingests sensor data from various locations, does some processing
-(including alerting users for anomalous values) on them, and stores them,
-allowing them to be served from an HTTP API. This exercise will see you building
-a basic version of the infrastructure required to do this.
+## Background
+
+The Converge Platform ingests sensor data from our customers' sites (these could be
+construction sites, factories, oil wells, etc.), does some processing (including
+alerting users for anomalous values) on them, and stores them, allowing them to
+be served from an HTTP API. This exercise will see you building a basic version
+of the infrastructure required to do this.
 
 Sensor data will come in as JSON representations with the following format:
 
@@ -21,11 +24,47 @@ of `(sensorId, time)` should be unique, as no sensor should be producing two
 data for the same moment in time.
 
 In this exercise, sensors will report their data by making an HTTP request `PUT
-/data` to a server we will build, that listens on port `8080`.
+/data` to a server you will build.
 
 ## Specification
 
-The expected behaviour is detailed in the tests. Your app should satisfy them.
+The specification for two resources on the HTTP server is described by the tests
+in `test/server.spec.js`. They are reproduced below:
+
+### Retrieving data
+
+    GET /data
+
+Fetches data for a given `sensorId`. Can specify date range if desired. Returns
+a JSON array of data with the earliest datum first.
+
+* 400s if sensorId is not specified
+* 400s if since is not a valid ISO 8601 date
+* 400s if until is not a valid ISO 8601 date
+* 400s if until is before since
+* 404s if that sensorId does not correspond to any data
+* returns a json array of data for a given sensor
+* returns data after a given date if specified
+* returns data before a given date if specified
+
+### Ingesting data
+
+    PUT /data
+
+Inserts a datum into the database. Packet should be sent in the request body as JSON:
+
+    {
+        sensorId: string,
+        time:     int,
+        value:    float,
+    }
+
+* 400s if packet does not contain sensorId
+* 400s if packet does not contain time
+* 400s if packet does not contain value
+* 409s if the packet is a duplicate with a different value
+* 204s if the packet structure is valid
+* stores a valid packet in the database
 
 ## Additional features
 
