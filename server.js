@@ -2,7 +2,10 @@
 
 const express = require("express");
 const app = express();
+const bodyParser = require('body-parser');
 const db = require("./db");
+
+app.use(bodyParser.json());
 
 app.get("/data", (req, res) => {
     if(!req.query.sensorId ||
@@ -30,6 +33,23 @@ app.get("/data", (req, res) => {
         })
     }
 });
+
+app.put("/data", (req, res) => {
+    if(!req.body.sensorId || !req.body.time || !req.body.value){
+        res.status(400).send();
+    } else {
+        db("data").insert([{
+            sensorId: (req.body.sensorId),
+            time: (new Date(req.body.time * 1000)),
+            value: (req.body.value)
+        }]).then(() => {
+            res.status(204).send()
+        }).catch(() => {
+            res.status(409).send();
+        })
+
+    }
+})
 
 module.exports = function server() {
     const __server = app;
