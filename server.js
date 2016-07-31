@@ -50,7 +50,7 @@ app.put("/data", (req, res) => {
         })
 
     }
-})
+});
 
 module.exports = function server() {
     const __server = app;
