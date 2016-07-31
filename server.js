@@ -11,7 +11,8 @@ app.get("/data", (req, res) => {
     if(!req.query.sensorId ||
         (req.query.since && isNaN(Date.parse(req.query.since))) ||
         (req.query.until && isNaN(Date.parse(req.query.until))) ||
-        (Date.parse(req.query.since) > Date.parse(req.query.until))){
+        (req.query.since && req.query.until &&
+            Date.parse(req.query.since) > Date.parse(req.query.until))){
 
         res.status(400).send();
 
